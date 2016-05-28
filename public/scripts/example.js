@@ -1,3 +1,9 @@
+// tutorial8.js
+var data = [
+  {author: "Pete Hunt1", text: "This is one comment1"},
+  {author: "Jordan Walke1", text: "This is *another* comment1"}
+];
+
 // tutorial4.js
 var Comment = React.createClass({
   rawMarkup: function() {
@@ -20,10 +26,16 @@ var Comment = React.createClass({
 // tutorial2.js
 var CommentList = React.createClass({
   render: function() {
+    var commentNodes = this.props.data.map(function (comment) {
+      return (
+        <Comment author={comment.author}>
+          {comment.text}
+        </Comment>
+      );
+    });
     return (
       <div className="commentList">
-        <Comment author="Pete Hunt">This is one comment</Comment>
-        <Comment author="Jordan Walke">This is *another* comment</Comment>
+        {commentNodes}
       </div>
     );
   }
@@ -45,14 +57,14 @@ var CommentBox = React.createClass({
     return (
       <div className="commentBox">
         <h1>Comments</h1>
-        <CommentList />
+        <CommentList data={this.props.data} />
         <CommentForm />
       </div>
     );
   }
 });
 ReactDOM.render(
-  <CommentBox />,
+  <CommentBox data={data} />,
   document.getElementById('content')
 );
 
